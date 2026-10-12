@@ -41,7 +41,7 @@ exit
 end
 write memory
 
-! Verification:
-! show vtp status
-! show interfaces trunk
-! show vlan brief
+
+show vtp status
+show interfaces trunk
+show vlan brief
