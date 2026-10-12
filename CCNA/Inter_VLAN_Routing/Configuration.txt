@@ -1,0 +1,84 @@
+! ==========================================
+! Lab: Inter-VLAN Routing using Layer 3 Switch
+! Switch: L3_SW
+! VLAN 10: SALES
+! VLAN 20: HR
+! ==========================================
+
+enable
+configure terminal
+
+hostname L3_SW
+
+! Create VLANs
+vlan 10
+ name SALES
+exit
+
+vlan 20
+ name HR
+exit
+
+! VLAN 10 - SALES
+interface range gigabitEthernet0/0-1
+ switchport mode access
+ switchport access vlan 10
+ no shutdown
+exit
+
+! VLAN 20 - HR
+interface range gigabitEthernet0/2-3
+ switchport mode access
+ switchport access vlan 20
+ no shutdown
+exit
+
+! Configure SVI for VLAN 10
+interface vlan 10
+ description SALES_GATEWAY
+ ip address 192.168.10.1 255.255.255.0
+ no shutdown
+exit
+
+! Configure SVI for VLAN 20
+interface vlan 20
+ description HR_GATEWAY
+ ip address 192.168.20.1 255.255.255.0
+ no shutdown
+exit
+
+! Enable Inter-VLAN Routing
+ip routing
+
+end
+write memory
+
+! ==========================================
+! PC IP ADDRESSING
+!
+! PC5 - G0/0 - VLAN 10
+! IP: 192.168.10.10
+! Mask: 255.255.255.0
+! Gateway: 192.168.10.1
+!
+! PC4 - G0/1 - VLAN 10
+! IP: 192.168.10.11
+! Mask: 255.255.255.0
+! Gateway: 192.168.10.1
+!
+! PC3 - G0/2 - VLAN 20
+! IP: 192.168.20.10
+! Mask: 255.255.255.0
+! Gateway: 192.168.20.1
+!
+! PC2 - G0/3 - VLAN 20
+! IP: 192.168.20.11
+! Mask: 255.255.255.0
+! Gateway: 192.168.20.1
+! ==========================================
+
+! Verification Commands
+! show vlan brief
+! show ip interface brief
+! show ip route
+! show running-config
