@@ -1,7 +1,4 @@
-! VTP Lab - SW1
-! VTP mode: Transparent
-! Trunk: Ethernet0/0
-! Access ports: Ethernet0/2 and Ethernet0/3 -> VLAN 30
+
 
 enable
 configure terminal
